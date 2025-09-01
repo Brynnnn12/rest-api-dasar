@@ -89,10 +89,9 @@ exports.destroy = async (req, res) => {
         message: "Todo tidak ditemukan",
       });
     }
-    res.status(200).json({
+    res.status(204).json({
       status: "success",
       message: "Todo berhasil dihapus",
-      data: todo,
     });
   } catch (error) {
     console.error("Error deleting todo:", error);
