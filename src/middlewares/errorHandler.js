@@ -1,13 +1,15 @@
 /**
  * middleware ini berfungsi untuk menangani error pada aplikasi
- *
+ * middleware ini akan mengembalikan response dengan status error dan pesan error yang sesuai
  */
 
 exports.errorHandler = (err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    message: "Internal Server Error",
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+
+  res.status(statusCode).json({
     status: "error",
+    message,
   });
 };
 
@@ -16,7 +18,7 @@ exports.errorHandler = (err, req, res, next) => {
  */
 exports.notFound = (req, res, next) => {
   res.status(404).json({
-    message: "Route not found",
     status: "error",
+    message: `Halaman ${req.originalUrl} tidak ditemukan`,
   });
 };
